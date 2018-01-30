@@ -1,11 +1,14 @@
 const path = require('path');
+var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 plugins: [new HtmlWebpackPlugin({
-  template: 'src/index.html',
-  filename: 'index.html',
-  inject: 'body'
-})]
+    template: 'src/index.html',
+    filename: 'index.html',
+    inject: 'body'
+    }),
+    new webpack.optimize.UglifyJsPlugin()]
 
 module.exports = {
     entry: './src/index.js',

@@ -19,5 +19,9 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "webpack": "^3.10.0"
+  },
+  "dependencies": {
+    "http-server": "^0.11.1",
+    "reactdom": "^2.0.0"
   }
 }
