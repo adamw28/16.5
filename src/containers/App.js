@@ -6,32 +6,52 @@ class App extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            data: []
+            todos: [],
+            currentText: ''
         };
     }
-    addTodo(event){
-        event.preventDefault();
-        console.log(event);
+    addTodo(){    
         const todo = {
-            text: eventy.target.value,
-            id: uuid.v4(),
-        };
-        const data = [...this.state.data, todo];
-        this.setState({data});
-        const Title = props => <h1>{props.title}</h1>
-        console.log(todo);
+            text: this.state.currentText,
+            id: uuid.v4()
+        }
+
+        this.setState({
+            todos: [...this.state.todos, todo]
+        });
     }
     removeTodo(id) {
-        const remainder = this.state.data.filter(todo => todo.id !== id);
-        this.setState({data: remainder});
+        const reminder = this.state.todos.filter( todo => todo.id !== id);
+
+        this.setState({
+            todos: reminder
+        })
+
     }
+
+    handlePress(ev){
+        this.setState({
+            currentText: ev.target.value
+        })
+    }
+
+    renderTodo(todo){
+        return (<li key={todo.id}>{todo.text} <button type="button" onClick={ ()=>{ this.removeTodo(todo.id) } }>Usuń</button></li>)
+    }
+
     render() {
         return (
-        
-            <form className={style.TodoApp} onSubmit={(event)=>{this.addTodo}}>
-                <input type="text" id="title" />
-                <button>Add title</button>
-            </form>
+            <div>
+                <form className={style.TodoApp} onSubmit={(event)=>{this.addTodo}}>
+                    <h1>Lista rzeczy do zrobienia</h1>
+                    <input type="text" id="title" onChange={this.handlePress.bind(this)} />
+                    <button type="button" onClick={this.addTodo.bind(this)}>Add title</button>
+                </form>
+    
+                <ul>
+                    {this.state.todos.map( todo => this.renderTodo(todo))}
+                </ul>
+            </div>
         
         );
     }
