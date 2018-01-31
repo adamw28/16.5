@@ -21,6 +21,8 @@
     "webpack": "^3.10.0"
   },
   "dependencies": {
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
     "http-server": "^0.11.1",
     "reactdom": "^2.0.0"
   }
