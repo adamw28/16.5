@@ -2,11 +2,6 @@ import React from 'react';
 import style from './App.css';
 import uuid from 'uuid';
 
-class Title extends React.Component {
-        render() {
-            return ( < h1 > { this.props.content } < /h1>)
-            }
-        }
         class TodoList extends React.Component {
             constructor(props) {
                 super(props);
@@ -33,7 +28,6 @@ class Title extends React.Component {
                 this.setState({
                     todos: [...this.state.todos, todo]
                 });
-                console.log('todo ', todo);
             }
             removeTodo(id) {
                 const reminder = this.state.todos.filter(todo => todo.id !== id);
@@ -47,7 +41,6 @@ class Title extends React.Component {
                 this.setState({
                     currentText: ev.target.value
                 });
-                console.log('currentText ', currentText);
 
             }
 
@@ -74,7 +67,7 @@ class Title extends React.Component {
                     button type = "button"
                     onClick = { this.addTodo.bind(this) } > Add title < /button> < /
                     form >
-
+                    <h1>Liczba zadań: {this.state.todos.length}</h1>
                     <
                     ul > { this.state.todos.map(todo => this.renderTodo(todo)) } <
                     /ul> < /
