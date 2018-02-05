@@ -3,16 +3,21 @@ import style from './App.css';
 import uuid from 'uuid';
 
 const TodoList = props => {
-    return ( <div><
-        ul >
-        list = {
-            props.state.todos
-        }
-        remove = {
-            props.removeTodo
-        } { props.state.todos.map(todo => this.renderTodo(props.todo)) } <
+    console.log(props.todos);
+    return ( < ul > {
+            props.todos.map((todo) => {
+                return ( < li key = { todo.id } > { todo.text } > <
+                    button type = "button"
+                    onClick = {
+                        () => { remove = props.removeTodo }
+                    } > Usuń < /button> < /
+                    li >
+                );
+            })
+        };
+        //remove = {props.removeTodo} { props.state.todos.map(todo => this.renderTodo(props.todo)) } 
+        <
         /ul>
-        </div>
     );
 }
 
@@ -58,13 +63,6 @@ class App extends React.Component {
 
     }
 
-    renderTodo(todo) {
-        return ( < li key = { todo.id } > { todo.text } < button type = "button"
-            onClick = {
-                () => { remove=this.removeTodo }
-            } > Usuń < /button></li > )
-    }
-
     render() {
         return ( <
             div >
@@ -83,8 +81,9 @@ class App extends React.Component {
             form >
             <
             h1 > Liczba zadań: { this.state.todos.length } < /h1> <
-            ul > < TodoList list = { this.state.todos } remove = { removeTodo } / > < /
-                        ul >  < /
+            ul > < TodoList todos = { this.state.todos } remove = { this.removeTodo }
+            / > < /
+            ul > < /
             div >
 
         );
