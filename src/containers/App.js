@@ -2,23 +2,27 @@ import React from 'react';
 import style from './App.css';
 import uuid from 'uuid';
 
-const TodoList = props => {
-    console.log(props.todos);
-    return ( < ul > {
-            props.todos.map((todo) => {
-                return ( < li key = { todo.id } > { todo.text } > <
-                    button type = "button"
-                    onClick = {
-                        () => { remove = props.removeTodo }
-                    } > Usuń < /button> < /
-                    li >
-                );
-            })
-        };
-        //remove = {props.removeTodo} { props.state.todos.map(todo => this.renderTodo(props.todo)) } 
-        <
-        /ul>
-    );
+class TodoList extends React.Component{
+    
+    removeItem(id){
+        this.props.remove(id)
+    }
+
+    render(){
+        return ( 
+            <ul> {
+                this.props.todos.map((todo) => {
+                    return ( 
+                        <div key={todo.id}>
+                            {todo.text}
+                            <button onClick={this.removeItem.bind(this, todo.id)}>Remove</button>
+                        </div>
+                        );
+                    })
+                };
+            </ul>
+        );
+    }
 }
 
 class App extends React.Component {
@@ -64,27 +68,20 @@ class App extends React.Component {
     }
 
     render() {
-        return ( <
-            div >
-            <
-            form className = { style.TodoApp } onSubmit = {
-                (event) => { this.addTodo }
-            } >
-            <
-            h1 > Lista rzeczy do zrobienia < /h1> <
-            input type = "text"
-            id = "title"
-            onChange = { this.handlePress.bind(this) }
-            /> <
-            button type = "button"
-            onClick = { this.addTodo.bind(this) } > Add title < /button> < /
-            form >
-            <
-            h1 > Liczba zadań: { this.state.todos.length } < /h1> <
-            ul > < TodoList todos = { this.state.todos } remove = { this.removeTodo }
-            / > < /
-            ul > < /
-            div >
+        return (
+            <div>
+                <form 
+                    className={style.TodoApp}
+                    onSubmit={(event) => {this.addTodo} }>
+                    <h1> Lista rzeczy do zrobienia</h1> 
+                    <input type="text" id="title" onChange={ this.handlePress.bind(this) } />
+                    <button type="button" onClick={ this.addTodo.bind(this) }>Add title</button>
+                </form>
+                <h1> Liczba zadań: {this.state.todos.length} </h1> 
+            
+                <TodoList todos={this.state.todos} remove={this.removeTodo.bind(this)} />
+                
+            </div>
 
         );
     }
