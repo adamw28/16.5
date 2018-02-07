@@ -2,24 +2,19 @@ import React from 'react';
 import style from './App.css';
 import uuid from 'uuid';
 
-const TodoList = props => {
-    console.log(props.todos);
-    return ( < ul > {
-            props.todos.map((todo) => {
-                return ( < li key = { todo.id } > { todo.text } > <
-                    button type = "button"
-                    onClick = {
-                        () => { remove = props.removeTodo }
-                    } > Usuń < /button> < /
-                    li >
-                );
-            })
-        };
-        //remove = {props.removeTodo} { props.state.todos.map(todo => this.renderTodo(props.todo)) } 
-        <
-        /ul>
-    );
-}
+const TodoList = props => ( <
+    ul > {
+        props.todos.map((todo) => {
+            return ( < li key = { todo.id } > { todo.text } <
+                button type = "button"
+                onClick = {
+                    () => { props.remove(todo.id) }
+                } > Usuń < /button> < /
+                li >
+            )
+        })
+    } </ul>
+);
 
 class App extends React.Component {
     constructor(props) {
@@ -49,18 +44,17 @@ class App extends React.Component {
         });
     }
     removeTodo(id) {
-        const reminder = this.state.todos.filter(todo => todo.id !== id);
-
+        const reminder = this.state.todos.filter(todo => {return todo.id !== id});
         this.setState({
             todos: reminder
-        });
+        })
+
     }
 
     handlePress(ev) {
         this.setState({
             currentText: ev.target.value
         });
-
     }
 
     render() {
@@ -81,10 +75,8 @@ class App extends React.Component {
             form >
             <
             h1 > Liczba zadań: { this.state.todos.length } < /h1> <
-            ul > < TodoList todos = { this.state.todos } remove = { this.removeTodo }
-            / > < /
-            ul > < /
-            div >
+            TodoList todos = { this.state.todos } remove = { this.removeTodo.bind(this) }/>
+            < /div >
 
         );
     }
